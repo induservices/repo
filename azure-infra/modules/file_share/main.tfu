@@ -1,25 +1,5 @@
 resource "azurerm_storage_share" "this" {
-  name                 = var.name
+  name                 = var.file_share_name
   storage_account_name = var.storage_account_name
-  quota                = var.quota_gb
-}
-
-data "azuread_group" "readers" {
-  display_name = var.reader_group_name
-}
-
-data "azuread_group" "writers" {
-  display_name = var.contributor_group_name
-}
-
-resource "azurerm_role_assignment" "reader" {
-  principal_id         = data.azuread_group.readers.object_id
-  role_definition_name = "Storage File Data SMB Share Reader"
-  scope                = azurerm_storage_share.this.id
-}
-
-resource "azurerm_role_assignment" "writer" {
-  principal_id         = data.azuread_group.writers.object_id
-  role_definition_name = "Storage File Data SMB Share Contributor"
-  scope                = azurerm_storage_share.this.id
+  quota                = var.share_quota_gb
 }
