@@ -1,0 +1,44 @@
+#Donner les drots sur un calendrier
+#
+Get-MailboxFolderPermission -Identity "socfinco@socfin.com:\Calendar"
+Set-MailboxFolderPermission -Identity "socfinco@socfin.com:\Calendar" -User "arj@socfin.com" -AccessRights LimitedDetails
+
+#ajouter out of office
+#
+$HtmlMessage = @"
+<html>
+<body>
+<p><strong>Français :</strong><br>
+
+    Bonjour,<br><br>
+
+    Nous vous remercions sincèrement pour votre candidature ainsi que pour l’intérêt que vous portez à notre entreprise.<br>
+
+    Votre dossier va être examiné avec la plus grande attention par notre équipe de recrutement. Si votre profil correspond aux exigences du poste, nous ne manquerons pas de revenir vers vous dans les plus brefs délais pour la suite du processus.<br><br>
+
+    Dans cette attente, nous vous adressons nos salutations les meilleures.<br>
+</p>
+<hr>
+<p><strong>English:</strong><br>
+
+    Dear,<br><br>
+
+    Thank you very much for your application and for your interest in our company.<br>
+
+    Our recruitment team will carefully review your application. Should your profile match the requirements of the position, we will get back to you shortly regarding the next steps in the process.<br><br>
+
+    In the meantime, we send you our best regards<br>
+</p>
+</body>
+</html>
+
+"@
+ 
+Set-MailboxAutoReplyConfiguration -Identity "recruit@socfin.com" -AutoReplyState Enabled -InternalMessage $HtmlMessage -ExternalMessage $HtmlMessage -ExternalAudience All
+ 
+
+
+#
+#donner accès à une boite
+
+Add-MailboxPermission -Identity "UserA" -User "UserB" -AccessRights FullAccess

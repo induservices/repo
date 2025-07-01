@@ -1,0 +1,7 @@
+variable "resource_group_name" {}
+variable "location" {}
+variable "storage_account_name" {}
+variable "file_share_name" {}
+variable "share_quota_gb" {}
+variable "reader_group_name" {}
+variable "contributor_group_name" {}
